@@ -20,7 +20,7 @@
       padding: 15px;
       color: var(--dark);
     }
-/* Header & Branding */
+    /* Header & Branding */
     .header-branding {
       text-align: center;
       margin-bottom: 20px;
@@ -44,7 +44,6 @@
       color: #6c757d;
       font-size: 0.85rem;
     }
-
     
     .container {
       max-width: 600px;
@@ -53,17 +52,6 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 5px;
-      color: #0f5132;
-    }
-    p.subtitle {
-      text-align: center;
-      margin-top: 0;
-      font-size: 14px;
-      color: #6c757d;
     }
     .form-group {
       margin-bottom: 15px;
@@ -144,20 +132,20 @@
   <!-- BAGIAN LOGO DAN HEADER -->
   <div class="header-branding">
     <img src="https://lh3.googleusercontent.com/d/1W79M3vvI-MMMg4IUXC8Y6Mm3OL0Xqeh9" alt="Logo PPSQ Asy-Syafadzli 1" class="logo-sekolah">
-  <h2>Absensi MQ</h2>
-  <p class="subtitle">Madrasah PPSQ Asy-Syadzili 1</p>
+    <h2>Absensi MQ</h2>
+    <p class="subtitle">Madrasah PPSQ Asy-Syadzili 1</p>
+  </div>
 
   <div class="form-group">
     <label for="kelas">Pilih Kelas:</label>
     <select id="kelas" onchange="renderSantriList()">
       <option value="Tahfidz 1A" selected>Tahfidz 1A</option>
-      <option value="Tahfidz 2A" selected>Tahfidz 2A</option>
-      <option value="Tahfidz 2B" selected>Tahfidz 2B</option>
-      <option value="Tahfidz 3" selected>Tahfidz 3</option>
-      <option value="Takmil A" selected>Takmil A</option>
-      <option value="Takmil B" selected>Takmil B</option>
-      <option value="Takmil C" selected>Takmil C</option>
-      <!-- Tambahkan pilihan kelas lain di sini jika ada -->
+      <option value="Tahfidz 2A">Tahfidz 2A</option>
+      <option value="Tahfidz 2B">Tahfidz 2B</option>
+      <option value="Tahfidz 3">Tahfidz 3</option>
+      <option value="Takmil A">Takmil A</option>
+      <option value="Takmil B">Takmil B</option>
+      <option value="Takmil C">Takmil C</option>
     </select>
   </div>
 
@@ -175,7 +163,7 @@
 </div>
 
 <script>
-  // 1. MASUKKAN URL GOOGLE APPS SCRIPT
+  // 1. URL GOOGLE APPS SCRIPT
   const scriptURL = 'https://script.google.com/macros/s/AKfycbx1nRmlYXpZslPZxwE_VZzQgy0IvveIRRTpElt8mnK0_W3gUnmwANgq2cK7i9luMrPf7Q/exec';
   
   // 2. DATA SANTRI BERDASARKAN KELAS
@@ -209,7 +197,7 @@
       "Abdul Ghofur",
       "Ahmad Sholeh Al Makki",
       "Ahmad Abdul Hafidz Mundzir"
-    ]
+    ],
     "Tahfidz 2A": [
       "Ahmad Anwar",
       "Choiru Mazkuri Rahman",
