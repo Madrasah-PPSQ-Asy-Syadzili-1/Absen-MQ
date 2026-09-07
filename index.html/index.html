@@ -123,6 +123,38 @@
       font-weight: bold;
       color: #0f5132;
     }
+       /* Bagian Kontak WhatsApp */
+.footer-wa {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px dashed #ced4da; /* Garis putus-putus pemisah */
+  text-align: center;
+}
+
+.footer-wa p {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #25D366; /* Warna hijau khas WhatsApp */
+  color: white;
+  text-decoration: none; /* Menghilangkan garis bawah link */
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-wa:hover {
+  background-color: #1ebc57; /* Warna saat tombol di-hover/ditekan */
+}
   </style>
 </head>
 <body>
@@ -161,6 +193,13 @@
 
   <button class="btn-submit" id="btnSimpan" onclick="kirimAbsensi()">Simpan Absensi MQ</button>
   <div id="loading">Memproses & Menyimpan Data...</div>
+  <!-- BAGIAN KONTAK WHATSAPP -->
+<div class="footer-wa">
+  <p>Informasi lebih lanjut bisa menghubungi:</p>
+  <a href="https://wa.me/6285857272196?text=Halo%20Admin,%20saya%20ingin%20bertanya%20seputar%20Absensi%20MQ" target="_blank" class="btn-wa">
+    💬 Chat via WhatsApp (085857272196)
+  </a>
+</div>
 </div>
 
 <script>
