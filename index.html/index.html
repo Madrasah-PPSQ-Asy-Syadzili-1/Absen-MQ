@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absensi MQ - Madrasah PPSQ Asy-Syadzili 1</title>
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 15px;
+      color: var(--dark);
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 5px;
+      color: #0f5132;
+    }
+    p.subtitle {
+      text-align: center;
+      margin-top: 0;
+      font-size: 14px;
+      color: #6c757d;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    .santri-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .santri-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 5px;
+    }
+    .btn-status {
+      border: 1px solid #ced4da;
+      background: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .btn-status.active-H { background-color: var(--success); color: white; border-color: var(--success); }
+    .btn-status.active-S { background-color: var(--primary); color: white; border-color: var(--primary); }
+    .btn-status.active-I { background-color: var(--warning); color: black; border-color: var(--warning); }
+    .btn-status.active-A { background-color: var(--danger); color: white; border-color: var(--danger); }
+    
+    .btn-submit {
+      width: 100%;
+      background-color: #0f5132;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn-submit:disabled {
+      background-color: #6c757d;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #0f5132;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Absensi MQ</h2>
+  <p class="subtitle">Madrasah PPSQ Asy-Syadzili 1 (1 Sesi)</p>
+
+  <div class="form-group">
+    <label for="tanggal">Pilih Tanggal:</label>
+    <input type="date" id="tanggal">
+  </div>
+
+  <div id="santriList">
+    <!-- Daftar Santri akan dimuat di sini -->
+  </div>
+
+  <button class="btn-submit" id="btnSimpan" onclick="kirimAbsensi()">Simpan Absensi MQ</button>
+  <div id="loading">Memproses & Menyimpan Data...</div>
+</div>
+
+<script>
+  // 1. MASUKKAN URL GOOGLE APPS SCRIPT KAMU DI SINI
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbx1nRmlYXpZslPZxwE_VZzQgy0IvveIRRTpElt8mnK0_W3gUnmwANgq2cK7i9luMrPf7Q/exec';
+  
+  // 2. DAFTAR NAMA SANTRI
+  const daftarSantri = [
+    // DAFTAR NAMA SANTRI MQ (RAPI)
+  const daftarSantri = [
+    "Aqib Irvan Purnomo",
+    "Farhan Maulana Ibrahim",
+    "Haydar Radya Dwi Putra",
+    "Misbahul Mukarom",
+    "Mochamad Alim",
+    "Mochammad Hanif Zam Zam",
+    "Muhammad Alvin Yasqima",
+    "Muhammad Asadullah Dzulfiqor",
+    "Muhammad Lutfhi Arromdloni",
+    "M Birrun Bika",
+    "Muchammad Ali Wafa",
+    "Ahmad Almuhajir",
+    "M. Fachri SIrojuddin Wahid",
+    "Musthofa Nailul Burhan",
+    "Achmad Rizky Hidayah",
+    "Muhammad Gabriel Aziz Alfani",
+    "Muhammad Syaifuddin",
+    "Raequl Habibi",
+    "Taqiyyudin",
+    "Mohammad Zia Ridlo Musyafi' Alfathoni",
+    "Nur Muhammad Khaidir Alhamid",
+    "Nur Muhammad Maulidi",
+    "Rifqi Rosul",
+    "Syafiih",
+    "Muhammad Ja'far Shodiq Al Mubarok",
+    "Abdul Ghofur",
+    "Ahmad Sholeh Al Makki",
+    "Ahmad Abdul Hafidz Mundzir"
+  ];
+    // Tambahkan nama-nama santri lainnya di sini sesuai spreadsheet
+  ];
+
+  // Set tanggal default hari ini
+  document.getElementById('tanggal').valueAsDate = new Date();
+
+  // Status absensi default per santri (Default: 'H' / Hadir)
+  let statusAbsensi = {};
+  daftarSantri.forEach(nama => statusAbsensi[nama] = 'H');
+
+  function renderSantriList() {
+    const container = document.getElementById('santriList');
+    container.innerHTML = '';
+
+    daftarSantri.forEach((nama) => {
+      const card = document.createElement('div');
+      card.className = 'santri-card';
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'santri-name';
+      nameEl.innerText = nama;
+
+      const btnGroup = document.createElement('div');
+      btnGroup.className = 'btn-group';
+
+      ['H', 'S', 'I', 'A'].forEach(status => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `btn-status ${statusAbsensi[nama] === status ? 'active-' + status : ''}`;
+        btn.innerText = status;
+        btn.onclick = () => {
+          statusAbsensi[nama] = status;
+          renderSantriList();
+        };
+        btnGroup.appendChild(btn);
+      });
+
+      card.appendChild(nameEl);
+      card.appendChild(btnGroup);
+      container.appendChild(card);
+    });
+  }
+
+  function kirimAbsensi() {
+    const tanggalInput = document.getElementById('tanggal').value;
+    if (!tanggalInput) {
+      alert("Silakan pilih tanggal terlebih dahulu!");
+      return;
+    }
+
+    const tglObj = new Date(tanggalInput);
+    const angkaTanggal = tglObj.getDate(); // Mengambil angka tanggal saja (1-31)
+
+    // Format data yang akan dikirim
+    const dataKirim = [];
+    daftarSantri.forEach(nama => {
+      dataKirim.push({
+        nama: nama,
+        status: statusAbsensi[nama]
+      });
+    });
+
+    const payload = {
+      sheetName: "MQ", // <--- KUNCI: Menunjuk ke sheet "MQ" (1 Sesi)
+      tanggal: angkaTanggal,
+      sesi: "-",       // <--- Sesi diisi "-" untuk 1 Sesi
+      data: dataKirim
+    };
+
+    const btnSimpan = document.getElementById('btnSimpan');
+    const loading = document.getElementById('loading');
+
+    btnSimpan.disabled = true;
+    loading.style.display = 'block';
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(result => {
+      btnSimpan.disabled = false;
+      loading.style.display = 'none';
+
+      if (result.status === 'success') {
+        alert("Berhasil! " + result.message);
+      } else {
+        alert("Gagal: " + result.message);
+      }
+    })
+    .catch(error => {
+      btnSimpan.disabled = false;
+      loading.style.display = 'none';
+      alert("Terjadi kesalahan koneksi/script: " + error.message);
+    });
+  }
+
+  // Jalankan pertama kali
+  renderSantriList();
+</script>
+
+</body>
+</html>
