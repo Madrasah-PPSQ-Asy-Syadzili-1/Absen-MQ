@@ -48,13 +48,14 @@
       margin-bottom: 5px;
       font-size: 14px;
     }
-    input[type="date"] {
+    input[type="date"], select {
       width: 100%;
       padding: 10px;
       border: 1px solid #ced4da;
       border-radius: 6px;
       box-sizing: border-box;
       font-size: 16px;
+      background-color: #fff;
     }
     .santri-card {
       display: flex;
@@ -65,7 +66,8 @@
     }
     .santri-name {
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
+      max-width: 55%;
     }
     .btn-group {
       display: flex;
@@ -74,7 +76,7 @@
     .btn-status {
       border: 1px solid #ced4da;
       background: #fff;
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
@@ -116,12 +118,20 @@
   <p class="subtitle">Madrasah PPSQ Asy-Syadzili 1 (1 Sesi)</p>
 
   <div class="form-group">
+    <label for="kelas">Pilih Kelas:</label>
+    <select id="kelas" onchange="renderSantriList()">
+      <option value="Tahfidz 1A" selected>Tahfidz 1A</option>
+      <!-- Tambahkan pilihan kelas lain di sini jika ada -->
+    </select>
+  </div>
+
+  <div class="form-group">
     <label for="tanggal">Pilih Tanggal:</label>
     <input type="date" id="tanggal">
   </div>
 
   <div id="santriList">
-    <!-- Daftar Santri akan dimuat di sini -->
+    <!-- Daftar Nama Santri Dikerjakan Oleh JavaScript -->
   </div>
 
   <button class="btn-submit" id="btnSimpan" onclick="kirimAbsensi()">Simpan Absensi MQ</button>
@@ -129,57 +139,73 @@
 </div>
 
 <script>
-  // 1. MASUKKAN URL GOOGLE APPS SCRIPT KAMU DI SINI
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbx1nRmlYXpZslPZxwE_VZzQgy0IvveIRRTpElt8mnK0_W3gUnmwANgq2cK7i9luMrPf7Q/exec';
+  // 1. MASUKKAN URL GOOGLE APPS SCRIPT
+  const scriptURL = 'PASTE_URL_GOOGLE_APPS_SCRIPT_DI_SINI';
   
-  // 2. DAFTAR NAMA SANTRI
-  const daftarSantri = [
-    // DAFTAR NAMA SANTRI MQ (RAPI)
-  const daftarSantri = [
-    "Aqib Irvan Purnomo",
-    "Farhan Maulana Ibrahim",
-    "Haydar Radya Dwi Putra",
-    "Misbahul Mukarom",
-    "Mochamad Alim",
-    "Mochammad Hanif Zam Zam",
-    "Muhammad Alvin Yasqima",
-    "Muhammad Asadullah Dzulfiqor",
-    "Muhammad Lutfhi Arromdloni",
-    "M Birrun Bika",
-    "Muchammad Ali Wafa",
-    "Ahmad Almuhajir",
-    "M. Fachri SIrojuddin Wahid",
-    "Musthofa Nailul Burhan",
-    "Achmad Rizky Hidayah",
-    "Muhammad Gabriel Aziz Alfani",
-    "Muhammad Syaifuddin",
-    "Raequl Habibi",
-    "Taqiyyudin",
-    "Mohammad Zia Ridlo Musyafi' Alfathoni",
-    "Nur Muhammad Khaidir Alhamid",
-    "Nur Muhammad Maulidi",
-    "Rifqi Rosul",
-    "Syafiih",
-    "Muhammad Ja'far Shodiq Al Mubarok",
-    "Abdul Ghofur",
-    "Ahmad Sholeh Al Makki",
-    "Ahmad Abdul Hafidz Mundzir"
-  ];
-    // Tambahkan nama-nama santri lainnya di sini sesuai spreadsheet
-  ];
+  // 2. DATA SANTRI BERDASARKAN KELAS
+  const dataKelas = {
+    "Tahfidz 1A": [
+      "Aqib Irvan Purnomo",
+      "Farhan Maulana Ibrahim",
+      "Haydar Radya Dwi Putra",
+      "Misbahul Mukarom",
+      "Mochamad Alim",
+      "Mochammad Hanif Zam Zam",
+      "Muhammad Alvin Yasqima",
+      "Muhammad Asadullah Dzulfiqor",
+      "Muhammad Lutfhi Arromdloni",
+      "M Birrun Bika",
+      "Muchammad Ali Wafa",
+      "Ahmad Almuhajir",
+      "M. Fachri SIrojuddin Wahid",
+      "Musthofa Nailul Burhan",
+      "Achmad Rizky Hidayah",
+      "Muhammad Gabriel Aziz Alfani",
+      "Muhammad Syaifuddin",
+      "Raequl Habibi",
+      "Taqiyyudin",
+      "Mohammad Zia Ridlo Musyafi' Alfathoni",
+      "Nur Muhammad Khaidir Alhamid",
+      "Nur Muhammad Maulidi",
+      "Rifqi Rosul",
+      "Syafiih",
+      "Muhammad Ja'far Shodiq Al Mubarok",
+      "Abdul Ghofur",
+      "Ahmad Sholeh Al Makki",
+      "Ahmad Abdul Hafidz Mundzir"
+    ]
+  };
 
   // Set tanggal default hari ini
   document.getElementById('tanggal').valueAsDate = new Date();
 
-  // Status absensi default per santri (Default: 'H' / Hadir)
+  // Status absensi default (H)
   let statusAbsensi = {};
-  daftarSantri.forEach(nama => statusAbsensi[nama] = 'H');
+
+  function inisialisasiStatus(kelasSelect) {
+    const listSantri = dataKelas[kelasSelect] || [];
+    listSantri.forEach(nama => {
+      if (!statusAbsensi[nama]) {
+        statusAbsensi[nama] = 'H';
+      }
+    });
+  }
 
   function renderSantriList() {
+    const kelasSelected = document.getElementById('kelas').value;
     const container = document.getElementById('santriList');
     container.innerHTML = '';
 
-    daftarSantri.forEach((nama) => {
+    inisialisasiStatus(kelasSelected);
+
+    const listSantri = dataKelas[kelasSelected] || [];
+
+    if (listSantri.length === 0) {
+      container.innerHTML = '<p style="text-align:center; color:#6c757d;">Tidak ada data santri untuk kelas ini.</p>';
+      return;
+    }
+
+    listSantri.forEach((nama) => {
       const card = document.createElement('div');
       card.className = 'santri-card';
 
@@ -210,27 +236,30 @@
 
   function kirimAbsensi() {
     const tanggalInput = document.getElementById('tanggal').value;
+    const kelasInput = document.getElementById('kelas').value;
+
     if (!tanggalInput) {
       alert("Silakan pilih tanggal terlebih dahulu!");
       return;
     }
 
     const tglObj = new Date(tanggalInput);
-    const angkaTanggal = tglObj.getDate(); // Mengambil angka tanggal saja (1-31)
+    const angkaTanggal = tglObj.getDate();
 
-    // Format data yang akan dikirim
+    const listSantri = dataKelas[kelasInput] || [];
     const dataKirim = [];
-    daftarSantri.forEach(nama => {
+
+    listSantri.forEach(nama => {
       dataKirim.push({
         nama: nama,
-        status: statusAbsensi[nama]
+        status: statusAbsensi[nama] || 'H'
       });
     });
 
     const payload = {
-      sheetName: "MQ", // <--- KUNCI: Menunjuk ke sheet "MQ" (1 Sesi)
+      sheetName: "MQ",
       tanggal: angkaTanggal,
-      sesi: "-",       // <--- Sesi diisi "-" untuk 1 Sesi
+      sesi: "-",
       data: dataKirim
     };
 
@@ -262,7 +291,7 @@
     });
   }
 
-  // Jalankan pertama kali
+  // Tampilkan daftar nama saat pertama kali dibuka
   renderSantriList();
 </script>
 
