@@ -20,7 +20,6 @@
       padding: 15px;
       color: var(--dark);
     }
-    /* Header & Branding */
     .header-branding {
       text-align: center;
       margin-bottom: 20px;
@@ -37,14 +36,12 @@
       color: #1a252f;
       font-size: 1.3rem;
       font-weight: 700;
-      line-height: 1.3;
     }
     .header-branding p {
       margin: 4px 0 0 0;
       color: #6c757d;
       font-size: 0.85rem;
     }
-    
     .container {
       max-width: 600px;
       margin: 0 auto;
@@ -113,9 +110,7 @@
       cursor: pointer;
       margin-top: 20px;
     }
-    .btn-submit:disabled {
-      background-color: #6c757d;
-    }
+    .btn-submit:disabled { background-color: #6c757d; }
     #loading {
       display: none;
       text-align: center;
@@ -123,47 +118,33 @@
       font-weight: bold;
       color: #0f5132;
     }
-       /* Bagian Kontak WhatsApp */
-.footer-wa {
-  margin-top: 25px;
-  padding-top: 15px;
-  border-top: 1px dashed #ced4da; /* Garis putus-putus pemisah */
-  text-align: center;
-}
-
-.footer-wa p {
-  margin: 0 0 10px 0;
-  font-size: 13px;
-  color: #6c757d;
-}
-
-.btn-wa {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background-color: #25D366; /* Warna hijau khas WhatsApp */
-  color: white;
-  text-decoration: none; /* Menghilangkan garis bawah link */
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.btn-wa:hover {
-  background-color: #1ebc57; /* Warna saat tombol di-hover/ditekan */
-}
+    .footer-wa {
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px dashed #ced4da;
+      text-align: center;
+    }
+    .footer-wa p { margin: 0 0 10px 0; font-size: 13px; color: #6c757d; }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
-
-  <!-- BAGIAN LOGO DAN HEADER -->
   <div class="header-branding">
-    <img src="https://lh3.googleusercontent.com/d/1W79M3vvI-MMMg4IUXC8Y6Mm3OL0Xqeh9" alt="Logo PPSQ Asy-Syafadzli 1" class="logo-sekolah">
+    <img src="https://lh3.googleusercontent.com/d/1W79M3vvI-MMMg4IUXC8Y6Mm3OL0Xqeh9" alt="Logo PPSQ Asy-Syadzili 1" class="logo-sekolah">
     <h2>Absensi MQ</h2>
     <p class="subtitle">Madrasah PPSQ Asy-Syadzili 1</p>
   </div>
@@ -171,14 +152,7 @@
   <div class="form-group">
     <label for="kelas">Pilih Kelas:</label>
     <select id="kelas" onchange="renderSantriList()">
-      <option value="" selected disabled>--Pilih Kelas--</option>
-      <option value="Tahfidz 1A">Tahfidz 1A</option>
-      <option value="Tahfidz 2A">Tahfidz 2A</option>
-      <option value="Tahfidz 2B">Tahfidz 2B</option>
-      <option value="Tahfidz 3">Tahfidz 3</option>
-      <option value="Takmil A">Takmil A</option>
-      <option value="Takmil B">Takmil B</option>
-      <option value="Takmil C">Takmil C</option>
+      <option value="" selected disabled>Sedang memuat data kelas...</option>
     </select>
   </div>
 
@@ -188,247 +162,57 @@
   </div>
 
   <div id="santriList">
-    <!-- Daftar Nama Santri Dikerjakan Oleh JavaScript -->
+    <p style="text-align:center; color:#6c757d;">Pilih kelas terlebih dahulu...</p>
   </div>
 
   <button class="btn-submit" id="btnSimpan" onclick="kirimAbsensi()">Simpan Absensi MQ</button>
   <div id="loading">Memproses & Menyimpan Data...</div>
-  <!-- BAGIAN KONTAK WHATSAPP -->
-<div class="footer-wa">
-  <p>Informasi lebih lanjut bisa menghubungi:</p>
-  <a href="https://wa.me/6285857272196?text=Halo%20Admin,%20saya%20ingin%20bertanya%20seputar%20Absensi%20MQ" target="_blank" class="btn-wa">
-    💬 Chat via WhatsApp (085857272196)
-  </a>
-</div>
+
+  <div class="footer-wa">
+    <p>Informasi lebih lanjut bisa menghubungi:</p>
+    <a href="https://wa.me/6285857272196?text=Halo%20Admin,%20saya%20ingin%20bertanya%20seputar%20Absensi%20MQ" target="_blank" class="btn-wa">
+      💬 Chat via WhatsApp (085857272196)
+    </a>
+  </div>
 </div>
 
 <script>
-  // 1. URL GOOGLE APPS SCRIPT
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbx1nRmlYXpZslPZxwE_VZzQgy0IvveIRRTpElt8mnK0_W3gUnmwANgq2cK7i9luMrPf7Q/exec';
+  // PASTE URL WEB APP DARI APPS SCRIPT DI SINI
+  const scriptURL = 'MASUKKAN_URL_WEB_APP_DARI_LANGKAH_3_DI_SINI';
   
-  // 2. DATA SANTRI BERDASARKAN KELAS
-  const dataKelas = {
-    "Tahfidz 1A": [
-      "Aqib Irvan Purnomo",
-      "Farhan Maulana Ibrahim",
-      "Haydar Radya Dwi Putra",
-      "Misbahul Mukarom",
-      "Mochamad Alim",
-      "Mochammad Hanif Zam Zam",
-      "Muhammad Alvin Yasqima",
-      "Muhammad Asadullah Dzulfiqor",
-      "Muhammad Lutfhi Arromdloni",
-      "M Birrun Bika",
-      "Muchammad Ali Wafa",
-      "Ahmad Almuhajir",
-      "M. Fachri SIrojuddin Wahid",
-      "Musthofa Nailul Burhan",
-      "Achmad Rizky Hidayah",
-      "Muhammad Gabriel Aziz Alfani",
-      "Muhammad Syaifuddin",
-      "Raequl Habibi",
-      "Taqiyyudin",
-      "Mohammad Zia Ridlo Musyafi' Alfathoni",
-      "Nur Muhammad Khaidir Alhamid",
-      "Nur Muhammad Maulidi",
-      "Rifqi Rosul",
-      "Syafiih",
-      "Muhammad Ja'far Shodiq Al Mubarok",
-      "Abdul Ghofur",
-      "Ahmad Sholeh Al Makki",
-      "Ahmad Abdul Hafidz Mundzir"
-    ],
-    "Tahfidz 2A": [
-      "Ahmad Anwar",
-      "Choiru Mazkuri Rahman",
-      "M.Aghosana Asadila",
-      "Muhammad Qoidul Ghurill Muhajjalin",
-      "Muhammad Rizqy",
-      "Nasrullah Husain",
-      "Hidayatulloh",
-      "Muhammad Dawam Roihanul M.",
-      "Muhammad Fakhri Jauhari",
-      "Muhammad Faza Fiddaroini",
-      "Muhammad Huda Ar Ridwan",
-      "Mukhamad Fatkhurohman",
-      "Abdul Halim Radityansyah",
-      "Achmad Azam Falichuddaroini",
-      "Ahmad Aditya Ramadhani",
-      "Brian Erlangga",
-      "Mochammad Abdul Hadi",
-      "Mohammad Limin",
-      "Muchammad Kamal Wajdi",
-      "Muhammad Burhanuddin Yufi",
-      "Muhammad Farkhan Hafid",
-      "Muhammad Fatikh Al-Widad",
-      "Muhammad Ihsanul Hasanain",
-      "Muhammad Rizki Arifin",
-      "Muhammad Saifuddin Zakaria",
-      "Muhammad Saiful Rizal",
-      "Syahrul Minan",
-      "Trio Micki Galih Saputra",
-      "Fadlan Hafidz Ramadana",
-      "Muhammad Akmal Al Hafil",
-      "Muhammad Fahrul Huda Azzaini",
-      "Moh. Iklil Marzoeqie"
-    ],
-    "Tahfidz 2B": [
-      "Ahmad Taqiyudin Al Faruq",
-      "Muhammad Saakif Aufary",
-      "Ahmad Arif Hidayat",
-      "Ahmad Roziin Hidayatullah",
-      "Eka Wijayanto",
-      "Excel Abdillah Firdaus",
-      "Habibil Ahsan Al Huda Latif",
-      "Mochammad Nafis Maulana",
-      "Muhammad Alfan Fahmi",
-      "Muhammad Husein Umar",
-      "Reyza Muhammad Ulinnuha",
-      "Rozan Muhammad Laudza'I",
-      "Zidny Fakhri Ramadhan",
-      "Ahkamil Hakim Abdillah",
-      "Ahmad Nawwaru Ukasyah Azzahir",
-      "M. Yafi Yusriansyah",
-      "Muhammad Fikri",
-      "Rizal Ziat Al Fikri",
-      "Satria Prima Putra",
-      "Muhammad Fawaid Chabibur Rohman",
-      "Naufal Misbahuddin",
-      "Davrillo Dwi Saputra"
-    ],
-    "Tahfidz 3": [
-      "Hamdani Badrul Akmal",
-      "Sayyidur Rival Hudani",
-      "Achmad Diauddin",
-      "Miqdad Haidar Al-Asyrof",
-      "Abdul Mun'Im Zam Zamy",
-      "Achmad Fikri Akyas Zain",
-      "Alif Nidaussholachi",
-      "Fabyan Asvan Anugrah",
-      "Mohammad Angga Ardiansyah",
-      "Muhammad Ilham Sulthoni",
-      "Ahmad Nahij Najman Abu Saaih",
-      "Mustofa Bin Isa Alhabsi",
-      "Fachris Firman Ramadhani",
-      "Fikri Jallaludin",
-      "Miftakhul Huda",
-      "Mochamad Syamsudin",
-      "Muhammad Fahreza Ubaidillah",
-      "Hamam Alwi",
-      "Isa Maulana Abdullah",
-      "Muhammad Ali Maksum"
-    ],
-    "Takmil A": [
-      "Abror Alkalali",
-      "Husnul Mubarok",
-      "Mohamad Fahmy Rosyadi",
-      "Mohammad Abiyu Dafa",
-      "Muhammad Yasyfi Fuadana",
-      "Abdul Qodir Jailani Ramadhani",
-      "Achmad Syahrul Mahbub",
-      "Ahmad Busthonul Faizin",
-      "Ahmad Faizul Musyafa",
-      "Ahmad Ihsan Safiro",
-      "Ahmad Nizar",
-      "Ahmad Qoharuddin Thoha",
-      "Ahmad Qusyairi",
-      "Ahmadi",
-      "Akhmad Zainul Mustofa",
-      "Ali Muhdlor Salam",
-      "Fahmi Rofiqi",
-      "Muhammad Afriandhika Romli",
-      "Muhammad Amien Quthbi",
-      "Muhammad Fatirul Kamalil Hanif",
-      "Muhammad Ibnu Nafi' Al Faqih",
-      "Muhammad Ifki Tibbil Kulub",
-      "Muhammad Irfan Khosyi",
-      "Muhammad Izzul Ulum",
-      "Muhammad Nafi' Addiyar",
-      "Muhammad Nuriz Nurzaman",
-      "Muhammad Rifqi Ramadhani",
-      "Muhammad Sudarmawan",
-      "Muhammad Syamsul Ma'Arif",
-      "Nurul Huda"
-    ],
-    "Takmil B": [
-      "Achmad Thoriq Al Ayyubi",
-      "Ahmad Imam Syafi'I",
-      "Iltsar Nail Abdul",
-      "Ahmad Ainun Na'Im",
-      "Akhmad Gambang Nurdiansyah",
-      "Ali Mufid Zulkarnain",
-      "Muhammad Afif Ainur Rohman",
-      "Muhammad Irfanudin",
-      "Nawwal Irfan Muhammad",
-      "Mohammad Atho'Illah Khodamul Qudus",
-      "Muhammad Ainul Khaq",
-      "Muhammad Rahmat Kholili",
-      "Abdul Kafi",
-      "Achmad Muzaiyin",
-      "Achmad Ramadhani Khoiril Djazuli",
-      "Ahmad Hunain Ailfa Kurniawan",
-      "Ahmad Islakhul Umam",
-      "Davin Wiratama Prasetyo",
-      "Dzateghib Roobith Aufi Halabiyah",
-      "Fitra Al Insani",
-      "Habib Mas'Ud Djazuli",
-      "Ilham Islamuddin Ma'Ruf",
-      "Mochamad Fahmi Akmal Fanani",
-      "Mohammad Alfan Mubarok",
-      "Muhammad Hamdan Yuwafi Al Azizi",
-      "Muhammad Ishomuddin",
-      "Muhammad Syahrul Ramadhan",
-      "Ruhul Aminul Wafy",
-      "Syarifuddin Aminulloh",
-      "Wafiq Jazuli",
-      "Ziddan Iffatul Lathoif"
-    ],
-    "Takmil C": [
-      "Muhammad Ahsanul Insani",
-      "Muhammad Izzudin Rifqi",
-      "A. Habibi Sulton Firdaus",
-      "Achmad Nabil",
-      "Fahmi Zainul Muttaqin",
-      "Muhammad Nur Syauqi Habibi",
-      "Nurman Hidayatullah",
-      "Zainal Musthofa",
-      "Arvin Janitra",
-      "Alwi Musadat",
-      "Muhammad Ghilman Jauharul Maknun",
-      "Muhammad Wildan Ahsanakalloh",
-      "Ahmad Najib Ridwan",
-      "Khy'Sh Manaj Muhammad Muhdy",
-      "Muhammad Dhafiq Khanz",
-      "Muhammad Fandi Narendra Muttaqin",
-      "Muhammad Ikhsan Ulil Abror",
-      "Muhammad Najah Zayd Elmi An Nafi'",
-      "Muhammad Nur Cahya Husaini",
-      "Muhammad Saifudin Zuhri",
-      "Musthofa",
-      "Royyan Abdillah Rifqi",
-      "Abdul Hafidh Alannafys",
-      "Ahmad Iqbal Maulana",
-      "Ahmad Jaelani Junior Ramadhan",
-      "Ahmad Maulana Abbas",
-      "Galang Fauzi",
-      "Muhammad",
-      "Nabil Maulana Amrulloh",
-      "Nawaluddin Muhammad Danu Adi Surya"
-    ]
-  };
+  let dataKelas = {};
+  let statusAbsensi = {};
 
-  // Set tanggal default hari ini
   document.getElementById('tanggal').valueAsDate = new Date();
 
-  // Status absensi default (H)
-  let statusAbsensi = {};
+  // AMBIL DATA DARI DATABASE GSHEET SAAT FORM DIBUKA
+  function muatDataDatabase() {
+    const selectKelas = document.getElementById('kelas');
+    
+    fetch(scriptURL)
+      .then(res => res.json())
+      .then(result => {
+        if (result.status === 'success') {
+          dataKelas = result.data;
+          selectKelas.innerHTML = '<option value="" selected disabled>--Pilih Kelas--</option>';
+          
+          Object.keys(dataKelas).forEach(kelas => {
+            const opt = document.createElement('option');
+            opt.value = kelas;
+            opt.innerText = kelas;
+            selectKelas.appendChild(opt);
+          });
+        } else {
+          alert("Gagal memuat database: " + result.message);
+        }
+      })
+      .catch(err => alert("Gagal koneksi ke server: " + err.message));
+  }
 
   function inisialisasiStatus(kelasSelect) {
     const listSantri = dataKelas[kelasSelect] || [];
     listSantri.forEach(nama => {
-      if (!statusAbsensi[nama]) {
-        statusAbsensi[nama] = 'H';
-      }
+      if (!statusAbsensi[nama]) statusAbsensi[nama] = 'H';
     });
   }
 
@@ -438,7 +222,6 @@
     container.innerHTML = '';
 
     inisialisasiStatus(kelasSelected);
-
     const listSantri = dataKelas[kelasSelected] || [];
 
     if (listSantri.length === 0) {
@@ -479,23 +262,17 @@
     const tanggalInput = document.getElementById('tanggal').value;
     const kelasInput = document.getElementById('kelas').value;
 
-    if (!tanggalInput) {
-      alert("Silakan pilih tanggal terlebih dahulu!");
-      return;
-    }
+    if (!kelasInput) return alert("Silakan pilih kelas terlebih dahulu!");
+    if (!tanggalInput) return alert("Silakan pilih tanggal terlebih dahulu!");
 
     const tglObj = new Date(tanggalInput);
     const angkaTanggal = tglObj.getDate();
 
     const listSantri = dataKelas[kelasInput] || [];
-    const dataKirim = [];
-
-    listSantri.forEach(nama => {
-      dataKirim.push({
-        nama: nama,
-        status: statusAbsensi[nama] || 'H'
-      });
-    });
+    const dataKirim = listSantri.map(nama => ({
+      nama: nama,
+      status: statusAbsensi[nama] || 'H'
+    }));
 
     const payload = {
       sheetName: "MQ",
@@ -528,12 +305,12 @@
     .catch(error => {
       btnSimpan.disabled = false;
       loading.style.display = 'none';
-      alert("Terjadi kesalahan koneksi/script: " + error.message);
+      alert("Terjadi kesalahan koneksi: " + error.message);
     });
   }
 
-  // Tampilkan daftar nama saat pertama kali dibuka
-  renderSantriList();
+  // Muat data saat halaman web pertama kali dibuka
+  document.addEventListener('DOMContentLoaded', muatDataDatabase);
 </script>
 
 </body>
