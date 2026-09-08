@@ -187,7 +187,8 @@
   function muatDataDatabase() {
     const selectKelas = document.getElementById('kelas');
     
-    fetch(scriptURL)
+    // Menggunakan JSONP / Handling fetch agar aman dari CORS saat GET
+    fetch(scriptURL + "?action=getData")
       .then(res => res.json())
       .then(result => {
         if (result.status === 'success') {
@@ -201,10 +202,13 @@
             selectKelas.appendChild(opt);
           });
         } else {
-          alert("Gagal memuat database: " + result.message);
+          alert("Gagal memuat database: " + (result.message || "Respon tidak valid"));
         }
       })
-      .catch(err => alert("Gagal koneksi ke server: " + err.message));
+      .catch(err => {
+        console.error(err);
+        alert("Gagal koneksi saat memuat kelas. Pastikan Web App Apps Script sudah di-deploy sebagai 'Anyone'.");
+      });
   }
 
   function inisialisasiStatus(kelasSelect) {
@@ -267,14 +271,18 @@
     const angkaTanggal = tglObj.getDate();
 
     const listSantri = dataKelas[kelasInput] || [];
+    
+    // PERBAIKAN: Masukkan info 'kelas' ke dalam setiap item santri
     const dataKirim = listSantri.map(nama => ({
       nama: nama,
+      kelas: kelasInput, // <-- PENTING: KELAS DISERTAKAN KAN
       status: statusAbsensi[nama] || 'H'
     }));
 
     const payload = {
       sheetName: "MQ",
       tanggal: angkaTanggal,
+      kelas: kelasInput, // <-- PENTING: KELAS DISERTAKAN DI UTAMA
       sesi: "-",
       data: dataKirim
     };
@@ -285,7 +293,7 @@
     btnSimpan.disabled = true;
     loading.style.display = 'block';
 
-    // PENGIRIMAN MENGGUNAKAN MODE no-cors AGAR TIDAK DIBLOKIR BROWSER
+    // Pengiriman POST memakai mode text/plain & no-cors
     fetch(scriptURL, {
       method: 'POST',
       mode: 'no-cors',
@@ -297,7 +305,7 @@
     .then(() => {
       btnSimpan.disabled = false;
       loading.style.display = 'none';
-      alert("Berhasil! Data absensi telah dikirim ke server.");
+      alert("Berhasil! Data absensi " + kelasInput + " telah dikirim ke server.");
     })
     .catch(error => {
       btnSimpan.disabled = false;
@@ -308,6 +316,6 @@
 
   document.addEventListener('DOMContentLoaded', muatDataDatabase);
 </script>
-
+  
 </body>
 </html>
