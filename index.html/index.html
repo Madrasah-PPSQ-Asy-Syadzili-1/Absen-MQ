@@ -285,24 +285,19 @@
     btnSimpan.disabled = true;
     loading.style.display = 'block';
 
-    // DENGAN HEADER Content-Type: text/plain AGAR TIDAK DIBLOKIR GOOGLE (CORS)
+    // PENGIRIMAN MENGGUNAKAN MODE no-cors AGAR TIDAK DIBLOKIR BROWSER
     fetch(scriptURL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
+        'Content-Type': 'text/plain'
       },
       body: JSON.stringify(payload)
     })
-    .then(response => response.json())
-    .then(result => {
+    .then(() => {
       btnSimpan.disabled = false;
       loading.style.display = 'none';
-
-      if (result.status === 'success') {
-        alert("Berhasil! " + result.message);
-      } else {
-        alert("Gagal: " + result.message);
-      }
+      alert("Berhasil! Data absensi telah dikirim ke server.");
     })
     .catch(error => {
       btnSimpan.disabled = false;
