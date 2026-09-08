@@ -177,7 +177,6 @@
 </div>
 
 <script>
-  // PASTE URL WEB APP DARI APPS SCRIPT DI SINI
   const scriptURL = 'https://script.google.com/macros/s/AKfycbxIYGHsFrySSMj_T3QQ9q_liBi4o4TXoG_Sg3xNgO6Ph4HClAlbZflZbfG_WbpqxkRxiA/exec';
   
   let dataKelas = {};
@@ -185,7 +184,6 @@
 
   document.getElementById('tanggal').valueAsDate = new Date();
 
-  // AMBIL DATA DARI DATABASE GSHEET SAAT FORM DIBUKA
   function muatDataDatabase() {
     const selectKelas = document.getElementById('kelas');
     
@@ -287,8 +285,12 @@
     btnSimpan.disabled = true;
     loading.style.display = 'block';
 
+    // DENGAN HEADER Content-Type: text/plain AGAR TIDAK DIBLOKIR GOOGLE (CORS)
     fetch(scriptURL, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
       body: JSON.stringify(payload)
     })
     .then(response => response.json())
@@ -309,7 +311,6 @@
     });
   }
 
-  // Muat data saat halaman web pertama kali dibuka
   document.addEventListener('DOMContentLoaded', muatDataDatabase);
 </script>
 
